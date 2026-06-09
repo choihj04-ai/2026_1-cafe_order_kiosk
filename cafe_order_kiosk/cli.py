@@ -79,6 +79,7 @@ def handle_menu(store: KioskStore) -> None:
 def handle_order(store: KioskStore, state: CLIState, args: list[str]) -> None:
     if not args:
         print("주문 명령어: 생성, 선택, 추가, 삭제, 조회, 취소")
+        print("옵션: 샷추가,바닐라시럽추가,헤이즐넛시럽추가,아이스크림추가,얼음적게/보통/많이")
         return
 
     action, tail = args[0], args[1:]

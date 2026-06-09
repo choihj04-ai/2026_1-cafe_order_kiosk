@@ -30,10 +30,11 @@ class OrderItem:
     unit_price: int
     quantity: int
     options: list[str] = field(default_factory=list)
+    option_price: int = 0
 
     @property
     def line_total(self) -> int:
-        return self.unit_price * self.quantity
+        return (self.unit_price + self.option_price) * self.quantity
 
 
 @dataclass(frozen=True)

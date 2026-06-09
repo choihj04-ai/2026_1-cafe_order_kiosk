@@ -18,6 +18,16 @@ DEFAULT_MENU: tuple[MenuItem, ...] = (
     MenuItem(id=10, name="Cheesecake", price=5200, category="dessert"),
 )
 
+ADD_OPTIONS: dict[str, int] = {
+    "샷추가": 500,
+    "연하게": 0,
+    "바닐라시럽추가": 300,
+    "헤이즐넛시럽추가": 300,
+    "아이스크림 추가": 700,
+    "얼음적게": 0,
+    "얼음보통": 0,
+    "얼음많이": 0,
+}
 
 class KioskStore:
     def __init__(self, menu_items: Iterable[MenuItem] | None = None) -> None:
@@ -74,12 +84,16 @@ class KioskStore:
         if not menu_item.is_available:
             raise ValueError("Menu item is not available")
 
+        selected_options = [option.strip() for option in (options or [])]
+        option_price = sum(ADD_OPTIONS.get(option, 0) for option in selected_options)
+
         order_item = OrderItem(
             menu_item_id=menu_item.id,
             name=menu_item.name,
             unit_price=menu_item.price,
             quantity=quantity,
-            options=options or [],
+            options=selected_options,
+            option_price=option_price,
         )
         order.items.append(order_item)
         return order
